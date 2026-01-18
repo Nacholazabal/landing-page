@@ -81,8 +81,9 @@ exports.handler = async (event, context) => {
 
     // 1. Enviar email de notificación a contacto@autoaiuy.com
     const notificationEmailSent = await sendEmail(RESEND_API_KEY, {
-      from: 'AutoAIUY <noreply@autoaiuy.com>', // Cambiar a onboarding@resend.dev si el dominio no está verificado
+      from: 'AutoAIUY <onboarding@resend.dev>', // Usando dominio compartido de Resend
       to: 'contacto@autoaiuy.com',
+      replyTo: email, // Para que puedas responder directamente al cliente
       subject: `Nueva consulta de ${name}`,
       html: `
         <!DOCTYPE html>
@@ -129,8 +130,9 @@ exports.handler = async (event, context) => {
 
     // 2. Enviar email de confirmación automática al usuario
     const confirmationEmailSent = await sendEmail(RESEND_API_KEY, {
-      from: 'AutoAIUY <noreply@autoaiuy.com>', // Cambiar a onboarding@resend.dev si el dominio no está verificado
+      from: 'AutoAIUY <onboarding@resend.dev>', // Usando dominio compartido de Resend
       to: email,
+      replyTo: 'contacto@autoaiuy.com', // Respuestas van a tu email
       subject: '✅ Recibimos tu consulta - AutoAIUY',
       html: `
         <!DOCTYPE html>
