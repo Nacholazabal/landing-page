@@ -1,0 +1,27 @@
+# Configuración de Netlify
+[build]
+  # Directorio de publicación (donde está tu index.html)
+  publish = "."
+  
+  # Directorio de funciones serverless
+  functions = "netlify/functions"
+
+# Configuración de funciones
+[functions]
+  # Directorio donde están las funciones
+  directory = "netlify/functions"
+
+# Headers de seguridad
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Redirects (opcional - descomenta si necesitás)
+# [[redirects]]
+#   from = "/api/*"
+#   to = "/.netlify/functions/:splat"
+#   status = 200

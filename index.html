@@ -1045,11 +1045,12 @@
       offset: 100
     });
 
-    // Contact Form Handling (Client-side validation only - no backend)
+    // Contact Form Handling (Netlify Function)
     const contactForm = document.getElementById('contactForm');
     const formMessage = document.getElementById('formMessage');
+    const submitButton = contactForm.querySelector('button[type="submit"]');
 
-    contactForm.addEventListener('submit', function(e) {
+    contactForm.addEventListener('submit', async function(e) {
       e.preventDefault();
       
       // Get form values
@@ -1070,14 +1071,43 @@
         return;
       }
 
-      // Success message (since no backend)
-      showMessage('¡Gracias por tu consulta! Te contactaremos pronto a ' + email, 'success');
-      
-      // Reset form
-      contactForm.reset();
-      
-      // Optional: You can add mailto functionality here
-      // window.location.href = `mailto:contacto@autoaiuy.com?subject=Consulta de ${name}&body=${message}`;
+      // Deshabilitar botón mientras se envía
+      submitButton.disabled = true;
+      submitButton.textContent = 'Enviando...';
+
+      try {
+        // Enviar a Netlify Function
+        const response = await fetch('/.netlify/functions/contacto', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name: name,
+            email: email,
+            message: message
+          })
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          // Éxito
+          showMessage('¡Gracias por tu consulta! Te contactaremos pronto a ' + email, 'success');
+          contactForm.reset();
+        } else {
+          // Error del servidor
+          showMessage(data.error || 'Hubo un error al enviar tu consulta. Por favor intentá de nuevo.', 'error');
+        }
+
+      } catch (error) {
+        console.error('Error al enviar formulario:', error);
+        showMessage('Error de conexión. Por favor verificá tu internet e intentá de nuevo.', 'error');
+      } finally {
+        // Re-habilitar botón
+        submitButton.disabled = false;
+        submitButton.textContent = 'Enviar Consulta';
+      }
     });
 
     function showMessage(text, type) {
