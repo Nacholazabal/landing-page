@@ -3,124 +3,1112 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>AutoAIUY | Automatización con IA</title>
+  <meta name="description" content="AutoAIUY - Consultora de Inteligencia Artificial y Automatización para empresas. Implementamos chatbots, agentes IA con RAG y automatizamos procesos de forma estratégica.">
+  <title>AutoAIUY | Consultora de IA y Automatización para Empresas</title>
+  
+  <!-- Icon Library - Lucide Icons (Free CDN) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Animation Library - AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <style>
-    body {
+    /* ===================================
+       VARIABLES Y ESTILOS GLOBALES
+    =================================== */
+    :root {
+      --color-primary: #6366f1;      /* Indigo */
+      --color-secondary: #8b5cf6;    /* Purple */
+      --color-accent: #a855f7;       /* Fuchsia */
+      --color-dark: #0f172a;         /* Dark slate */
+      --color-darker: #020617;       /* Darker slate */
+      --color-text: #e5e7eb;         /* Light gray */
+      --color-text-muted: #94a3b8;   /* Muted gray */
+      --color-border: #1e293b;       /* Border gray */
+      --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%);
+      --gradient-dark: linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      --max-width: 1200px;
+      --spacing-section: 100px;
+    }
+
+    * {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      background: #0f172a;
-      color: #e5e7eb;
+      padding: 0;
+      box-sizing: border-box;
     }
 
-    header {
-      padding: 80px 20px;
-      text-align: center;
-      background: linear-gradient(135deg, #020617, #020617);
+    html {
+      scroll-behavior: smooth;
     }
 
-    header h1 {
-      font-size: 3rem;
-      margin-bottom: 10px;
-      color: #38bdf8;
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--color-dark);
+      color: var(--color-text);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
 
-    header p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto 30px;
-      color: #cbd5f5;
+    /* ===================================
+       TIPOGRAFÍA
+    =================================== */
+    h1, h2, h3, h4, h5, h6 {
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 1rem;
     }
 
-    .cta {
-      display: inline-block;
-      padding: 15px 30px;
-      background: #38bdf8;
-      color: #020617;
-      text-decoration: none;
-      font-weight: bold;
-      border-radius: 8px;
+    h1 {
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      font-weight: 800;
+    }
+
+    h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 700;
+    }
+
+    h3 {
+      font-size: clamp(1.25rem, 2vw, 1.75rem);
+      font-weight: 600;
+    }
+
+    p {
+      font-size: 1.125rem;
+      line-height: 1.8;
+      color: var(--color-text-muted);
+    }
+
+    /* ===================================
+       CONTENEDORES Y SECCIONES
+    =================================== */
+    .container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 20px;
     }
 
     section {
-      padding: 60px 20px;
-      max-width: 900px;
-      margin: auto;
+      padding: var(--spacing-section) 0;
+      position: relative;
     }
 
-    .services {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    .section-title {
+      text-align: center;
+      margin-bottom: 3rem;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      max-width: 700px;
+      margin: -2rem auto 3rem;
+      font-size: 1.25rem;
+      color: var(--color-text-muted);
+    }
+
+    /* ===================================
+       BOTONES
+    =================================== */
+    .btn {
+      display: inline-block;
+      padding: 16px 40px;
+      font-size: 1.125rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: 12px;
+      transition: all 0.3s ease;
+      cursor: pointer;
+      border: none;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: var(--gradient-primary);
+      color: white;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(139, 92, 246, 0.5);
+    }
+
+    .btn-secondary {
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--color-primary);
+      border: 2px solid var(--color-primary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(99, 102, 241, 0.2);
+      transform: translateY(-2px);
+    }
+
+    /* ===================================
+       LOGO PLACEHOLDER (SVG)
+    =================================== */
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      justify-content: center;
+      margin-bottom: 2rem;
+    }
+
+    .logo {
+      /* Placeholder: Replace this SVG with your actual logo.png when ready */
+      /* Just change: <img src="logo.png" alt="AutoAIUY Logo" class="logo"> */
+      width: 60px;
+      height: 60px;
+      filter: drop-shadow(0 4px 10px rgba(139, 92, 246, 0.4));
+    }
+
+    .logo-text {
+      font-size: 2rem;
+      font-weight: 800;
+      background: var(--gradient-primary);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* ===================================
+       HERO SECTION
+    =================================== */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: var(--gradient-dark);
+      position: relative;
+      overflow: hidden;
+      padding-top: 60px;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: 
+        radial-gradient(circle at 20% 30%, rgba(99, 102, 241, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.15) 0%, transparent 50%);
+      pointer-events: none;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 {
+      margin-bottom: 1.5rem;
+      color: white;
+    }
+
+    .hero p {
+      font-size: 1.5rem;
+      max-width: 800px;
+      margin: 0 auto 2.5rem;
+      color: var(--color-text);
+    }
+
+    .hero-cta {
+      display: flex;
       gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    /* ===================================
+       CARDS Y GRID LAYOUTS
+    =================================== */
+    .grid {
+      display: grid;
+      gap: 30px;
+    }
+
+    .grid-2 {
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+
+    .grid-3 {
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    }
+
+    .grid-4 {
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     }
 
     .card {
-      background: #020617;
-      padding: 25px;
-      border-radius: 10px;
-      border: 1px solid #1e293b;
+      background: var(--color-darker);
+      padding: 40px 30px;
+      border-radius: 16px;
+      border: 1px solid var(--color-border);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--gradient-primary);
+      transform: scaleX(0);
+      transition: transform 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      border-color: var(--color-primary);
+      box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+    }
+
+    .card:hover::before {
+      transform: scaleX(1);
+    }
+
+    .card-icon {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gradient-primary);
+      border-radius: 12px;
+      margin-bottom: 1.5rem;
+      color: white;
     }
 
     .card h3 {
-      margin-top: 0;
-      color: #38bdf8;
+      color: white;
+      margin-bottom: 1rem;
     }
 
-    footer {
+    .card p {
+      font-size: 1rem;
+      margin: 0;
+    }
+
+    /* ===================================
+       PROBLEMS SECTION
+    =================================== */
+    .problems {
+      background: var(--color-darker);
+    }
+
+    .problem-card {
       text-align: center;
+    }
+
+    .problem-icon {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(239, 68, 68, 0.1);
+      border: 2px solid rgba(239, 68, 68, 0.3);
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      color: #ef4444;
+    }
+
+    /* ===================================
+       ABOUT SECTION
+    =================================== */
+    .about-content {
+      max-width: 900px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .about-content p {
+      font-size: 1.25rem;
+      margin-bottom: 1.5rem;
+      color: var(--color-text);
+    }
+
+    .about-highlights {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 3rem;
+    }
+
+    .highlight {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: rgba(99, 102, 241, 0.1);
+      padding: 16px 24px;
+      border-radius: 12px;
+      border: 1px solid var(--color-primary);
+    }
+
+    .highlight i {
+      color: var(--color-primary);
+    }
+
+    .highlight span {
+      font-weight: 600;
+      color: white;
+    }
+
+    /* ===================================
+       SERVICES SECTION
+    =================================== */
+    .services {
+      background: var(--color-darker);
+    }
+
+    .service-number {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(99, 102, 241, 0.2);
+      border-radius: 50%;
+      font-weight: 700;
+      color: var(--color-primary);
+      font-size: 1.25rem;
+    }
+
+    /* ===================================
+       HOW WE WORK SECTION (TIMELINE)
+    =================================== */
+    .timeline {
+      max-width: 800px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: var(--gradient-primary);
+      transform: translateX(-50%);
+    }
+
+    .timeline-item {
+      display: flex;
+      gap: 30px;
+      margin-bottom: 60px;
+      position: relative;
+    }
+
+    .timeline-item:nth-child(odd) {
+      flex-direction: row;
+    }
+
+    .timeline-item:nth-child(even) {
+      flex-direction: row-reverse;
+    }
+
+    .timeline-content {
+      flex: 1;
+      background: var(--color-darker);
       padding: 30px;
+      border-radius: 12px;
+      border: 1px solid var(--color-border);
+    }
+
+    .timeline-number {
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--gradient-primary);
+      border-radius: 50%;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: white;
+      flex-shrink: 0;
+      box-shadow: 0 4px 20px rgba(139, 92, 246, 0.4);
+      z-index: 1;
+    }
+
+    .timeline-content h3 {
+      color: white;
+      margin-bottom: 0.75rem;
+    }
+
+    .timeline-content p {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    /* ===================================
+       CONTACT FORM SECTION
+    =================================== */
+    .contact {
+      background: var(--color-darker);
+    }
+
+    .contact-form {
+      max-width: 600px;
+      margin: 0 auto;
+      background: var(--color-dark);
+      padding: 40px;
+      border-radius: 16px;
+      border: 1px solid var(--color-border);
+    }
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .form-group input,
+    .form-group textarea {
+      width: 100%;
+      padding: 14px 18px;
+      background: var(--color-darker);
+      border: 2px solid var(--color-border);
+      border-radius: 8px;
+      color: var(--color-text);
+      font-size: 1rem;
+      font-family: inherit;
+      transition: all 0.3s ease;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--color-primary);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 150px;
+    }
+
+    .form-message {
+      padding: 16px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      display: none;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .form-message.success {
+      background: rgba(34, 197, 94, 0.1);
+      color: #22c55e;
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      display: block;
+    }
+
+    .form-message.error {
+      background: rgba(239, 68, 68, 0.1);
+      color: #ef4444;
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      display: block;
+    }
+
+    /* ===================================
+       FOOTER
+    =================================== */
+    footer {
+      background: var(--color-darker);
+      padding: 60px 0 30px;
+      border-top: 1px solid var(--color-border);
+    }
+
+    .footer-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 30px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .footer-link {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--color-text);
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+
+    .footer-link:hover {
+      color: var(--color-primary);
+    }
+
+    .footer-link i {
+      width: 20px;
+      height: 20px;
+    }
+
+    .footer-bottom {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid var(--color-border);
+      color: var(--color-text-muted);
       font-size: 0.9rem;
-      color: #94a3b8;
-      border-top: 1px solid #1e293b;
+    }
+
+    /* ===================================
+       RESPONSIVE
+    =================================== */
+    @media (max-width: 768px) {
+      :root {
+        --spacing-section: 60px;
+      }
+
+      .hero {
+        min-height: auto;
+        padding: 80px 0;
+      }
+
+      .hero p {
+        font-size: 1.25rem;
+      }
+
+      .hero-cta {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .btn {
+        padding: 14px 32px;
+        font-size: 1rem;
+      }
+
+      .timeline::before {
+        left: 30px;
+      }
+
+      .timeline-item:nth-child(odd),
+      .timeline-item:nth-child(even) {
+        flex-direction: row;
+        padding-left: 0;
+      }
+
+      .timeline-content {
+        margin-left: 100px;
+      }
+
+      .grid-2,
+      .grid-3,
+      .grid-4 {
+        grid-template-columns: 1fr;
+      }
+
+      .contact-form {
+        padding: 30px 20px;
+      }
+
+      .footer-links {
+        flex-direction: column;
+        gap: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 16px;
+      }
+
+      h1 {
+        font-size: 2rem;
+      }
+
+      h2 {
+        font-size: 1.75rem;
+      }
+
+      .card {
+        padding: 30px 20px;
+      }
     }
   </style>
 </head>
 
 <body>
 
-  <header>
-    <h1>AutoAIUY</h1>
-    <p>
-      Automatizamos procesos con Inteligencia Artificial para que tu empresa
-      ahorre tiempo, reduzca costos y escale sin fricción.
-    </p>
-    <a class="cta" href="mailto:hola@autoaiuy.com">
-      Contactanos
-    </a>
-  </header>
+  <!-- ===================================
+       HERO SECTION
+  =================================== -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <!-- Logo Placeholder -->
+        <div class="logo-container">
+          <!-- 
+            LOGO PLACEHOLDER - Replace with your actual logo when ready.
+            Option 1: Keep this SVG placeholder
+            Option 2: Replace with: <img src="logo.png" alt="AutoAIUY Logo" class="logo">
+          -->
+          <svg class="logo" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="60" height="60" rx="12" fill="url(#logoGradient)"/>
+            <text x="30" y="40" font-family="Inter, Arial" font-size="28" font-weight="bold" 
+                  fill="white" text-anchor="middle">AI</text>
+          </svg>
+          <span class="logo-text">AutoAIUY</span>
+        </div>
 
-  <section>
-    <h2>Qué hacemos</h2>
-    <div class="services">
-      <div class="card">
-        <h3>Recepcionistas virtuales</h3>
-        <p>
-          Bots con IA que atienden consultas, agendan turnos y responden 24/7
-          por WhatsApp, web o email.
+        <h1 data-aos="fade-up">
+          Llevamos Inteligencia Artificial a Tu Negocio
+        </h1>
+        <p data-aos="fade-up" data-aos-delay="100">
+          Consultora especializada en IA y automatización. Transformamos procesos, implementamos chatbots inteligentes y creamos soluciones con IA que realmente generan impacto en tu empresa.
         </p>
-      </div>
-
-      <div class="card">
-        <h3>Automatización de procesos</h3>
-        <p>
-          Integramos sistemas y eliminamos tareas manuales usando flujos
-          inteligentes y herramientas de IA.
-        </p>
-      </div>
-
-      <div class="card">
-        <h3>Soluciones a medida</h3>
-        <p>
-          Diseñamos automatizaciones personalizadas según las necesidades reales
-          de tu negocio.
-        </p>
+        <div class="hero-cta" data-aos="fade-up" data-aos-delay="200">
+          <a href="#contacto" class="btn btn-primary">Contanos tu caso</a>
+          <a href="#servicios" class="btn btn-secondary">Conocer servicios</a>
+        </div>
       </div>
     </div>
   </section>
 
+  <!-- ===================================
+       PROBLEMS SECTION
+  =================================== -->
+  <section class="problems">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">¿Te pasa esto en tu empresa?</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+        Estos son los problemas más comunes que resolvemos con inteligencia artificial
+      </p>
+      
+      <div class="grid grid-4">
+        <div class="card problem-card" data-aos="fade-up" data-aos-delay="100">
+          <div class="problem-icon">
+            <i data-lucide="repeat" width="40" height="40"></i>
+          </div>
+          <h3>Tareas Repetitivas</h3>
+          <p>
+            Tu equipo pierde tiempo en tareas manuales que podrían estar automatizadas
+          </p>
+        </div>
+
+        <div class="card problem-card" data-aos="fade-up" data-aos-delay="150">
+          <div class="problem-icon">
+            <i data-lucide="clock" width="40" height="40"></i>
+          </div>
+          <h3>Tiempo Perdido</h3>
+          <p>
+            Procesos lentos que podrían ser instantáneos con las herramientas correctas
+          </p>
+        </div>
+
+        <div class="card problem-card" data-aos="fade-up" data-aos-delay="200">
+          <div class="problem-icon">
+            <i data-lucide="circle-slash" width="40" height="40"></i>
+          </div>
+          <h3>Falta de Automatización</h3>
+          <p>
+            Todavía hacés a mano lo que la tecnología podría hacer por vos
+          </p>
+        </div>
+
+        <div class="card problem-card" data-aos="fade-up" data-aos-delay="250">
+          <div class="problem-icon">
+            <i data-lucide="message-circle-off" width="40" height="40"></i>
+          </div>
+          <h3>Respuestas Lentas</h3>
+          <p>
+            Tus clientes esperan horas (o días) para recibir respuestas simples
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================
+       ABOUT SECTION
+  =================================== -->
+  <section id="nosotros">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">¿Qué es AutoAIUY?</h2>
+      
+      <div class="about-content">
+        <p data-aos="fade-up" data-aos-delay="100">
+          <strong>No somos solo implementadores técnicos.</strong> Somos consultores especializados en inteligencia artificial que analizan tu negocio, identifican oportunidades reales y diseñan soluciones con IA que generan resultados medibles.
+        </p>
+        
+        <p data-aos="fade-up" data-aos-delay="150">
+          Trabajamos de forma estratégica: primero entendemos tu operación, después aplicamos IA donde realmente tiene impacto. No vendemos tecnología por vender, sino que transformamos la forma en que tu empresa funciona.
+        </p>
+
+        <div class="about-highlights">
+          <div class="highlight" data-aos="zoom-in" data-aos-delay="200">
+            <i data-lucide="target" width="24" height="24"></i>
+            <span>Estrategia primero</span>
+          </div>
+          <div class="highlight" data-aos="zoom-in" data-aos-delay="250">
+            <i data-lucide="rocket" width="24" height="24"></i>
+            <span>Resultados medibles</span>
+          </div>
+          <div class="highlight" data-aos="zoom-in" data-aos-delay="300">
+            <i data-lucide="users" width="24" height="24"></i>
+            <span>Acompañamiento continuo</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================
+       SERVICES SECTION
+  =================================== -->
+  <section id="servicios" class="services">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Nuestros Servicios</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+        Soluciones personalizadas de IA y automatización para tu empresa
+      </p>
+
+      <div class="grid grid-2">
+        <!-- Service 1: WhatsApp Chatbots -->
+        <div class="card" data-aos="fade-up" data-aos-delay="100">
+          <span class="service-number">01</span>
+          <div class="card-icon">
+            <i data-lucide="message-circle" width="32" height="32"></i>
+          </div>
+          <h3>Chatbots Inteligentes en WhatsApp</h3>
+          <p>
+            Implementamos asistentes virtuales que atienden a tus clientes 24/7 por WhatsApp. Responden consultas, agendan turnos, toman pedidos y escalan conversaciones complejas a tu equipo. <strong>Tu cliente nunca más queda sin respuesta.</strong>
+          </p>
+        </div>
+
+        <!-- Service 2: RAG AI Agents -->
+        <div class="card" data-aos="fade-up" data-aos-delay="150">
+          <span class="service-number">02</span>
+          <div class="card-icon">
+            <i data-lucide="brain" width="32" height="32"></i>
+          </div>
+          <h3>Agentes de IA con RAG</h3>
+          <p>
+            Creamos agentes inteligentes que <strong>conocen tu negocio</strong> al detalle. Entienden tus productos, precios, políticas y procesos. Funcionan como un vendedor o soporte experto, pero disponible siempre y sin límite de capacidad.
+          </p>
+        </div>
+
+        <!-- Service 3: Process Automation -->
+        <div class="card" data-aos="fade-up" data-aos-delay="200">
+          <span class="service-number">03</span>
+          <div class="card-icon">
+            <i data-lucide="zap" width="32" height="32"></i>
+          </div>
+          <h3>Automatización de Procesos</h3>
+          <p>
+            Automatizamos tareas repetitivas: facturación, seguimiento de clientes, envío de emails, generación de reportes, carga de datos. <strong>Tu equipo se enfoca en crecer, no en tareas manuales.</strong>
+          </p>
+        </div>
+
+        <!-- Service 4: Strategic Consulting -->
+        <div class="card" data-aos="fade-up" data-aos-delay="250">
+          <span class="service-number">04</span>
+          <div class="card-icon">
+            <i data-lucide="sparkles" width="32" height="32"></i>
+          </div>
+          <h3>Consultoría Estratégica en IA</h3>
+          <p>
+            Analizamos tu empresa y te mostramos <strong>exactamente dónde aplicar IA</strong> para obtener el mayor impacto. No implementamos tecnología por implementar: diseñamos soluciones que resuelven problemas reales y mejoran resultados.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================
+       HOW WE WORK SECTION
+  =================================== -->
+  <section id="proceso">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">¿Cómo Trabajamos?</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+        Nuestro proceso estratégico de implementación de IA
+      </p>
+
+      <div class="timeline">
+        <!-- Step 1 -->
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="100">
+          <div class="timeline-content">
+            <h3>Análisis del Negocio</h3>
+            <p>
+              Conocemos tu empresa, tus procesos actuales, tus puntos de dolor y tus objetivos. Identificamos oportunidades donde la IA puede generar valor real.
+            </p>
+          </div>
+          <div class="timeline-number">1</div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="150">
+          <div class="timeline-content">
+            <h3>Identificación de Tareas Críticas</h3>
+            <p>
+              Detectamos qué tareas consumen más tiempo, generan errores o limitan el crecimiento. Priorizamos las que tendrán mayor impacto al automatizarse.
+            </p>
+          </div>
+          <div class="timeline-number">2</div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="timeline-item" data-aos="fade-right" data-aos-delay="200">
+          <div class="timeline-content">
+            <h3>Diseño de Soluciones con IA</h3>
+            <p>
+              Diseñamos la solución ideal: chatbots, agentes con RAG, flujos de automatización. Te mostramos cómo va a funcionar antes de implementar.
+            </p>
+          </div>
+          <div class="timeline-number">3</div>
+        </div>
+
+        <!-- Step 4 -->
+        <div class="timeline-item" data-aos="fade-left" data-aos-delay="250">
+          <div class="timeline-content">
+            <h3>Implementación y Mejora Continua</h3>
+            <p>
+              Ponemos en marcha la solución, capacitamos a tu equipo y monitoreamos resultados. Ajustamos y optimizamos constantemente para maximizar el impacto.
+            </p>
+          </div>
+          <div class="timeline-number">4</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================
+       CONTACT FORM SECTION
+  =================================== -->
+  <section id="contacto" class="contact">
+    <div class="container">
+      <h2 class="section-title" data-aos="fade-up">Contanos tu Caso</h2>
+      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="50">
+        Completá el formulario y te contactamos para analizar cómo podemos ayudarte
+      </p>
+
+      <div class="contact-form" data-aos="fade-up" data-aos-delay="100">
+        <!-- Success/Error Messages -->
+        <div id="formMessage" class="form-message"></div>
+
+        <form id="contactForm">
+          <div class="form-group">
+            <label for="name">Nombre Completo *</label>
+            <input 
+              type="text" 
+              id="name" 
+              name="name" 
+              placeholder="Tu nombre"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              placeholder="tu@email.com"
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="message">Contanos sobre tu empresa y qué querés automatizar *</label>
+            <textarea 
+              id="message" 
+              name="message" 
+              placeholder="Ej: Tengo una empresa de X y necesito automatizar Y..."
+              required
+            ></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary" style="width: 100%;">
+            Enviar Consulta
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================
+       FOOTER
+  =================================== -->
   <footer>
-    © 2026 AutoAIUY — Automatización con IA
+    <div class="container">
+      <div class="footer-content">
+        <!-- Logo -->
+        <div class="footer-logo">
+          <!-- Same logo placeholder as header -->
+          <svg class="logo" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="logoGradientFooter" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#6366f1;stop-opacity:1" />
+                <stop offset="50%" style="stop-color:#8b5cf6;stop-opacity:1" />
+                <stop offset="100%" style="stop-color:#a855f7;stop-opacity:1" />
+              </linearGradient>
+            </defs>
+            <rect width="60" height="60" rx="12" fill="url(#logoGradientFooter)"/>
+            <text x="30" y="40" font-family="Inter, Arial" font-size="28" font-weight="bold" 
+                  fill="white" text-anchor="middle">AI</text>
+          </svg>
+          <span class="logo-text">AutoAIUY</span>
+        </div>
+
+        <!-- Contact Links -->
+        <div class="footer-links">
+          <a href="mailto:contacto@autoaiuy.com" class="footer-link">
+            <i data-lucide="mail" width="20" height="20"></i>
+            <span>contacto@autoaiuy.com</span>
+          </a>
+          
+          <!-- Instagram - Placeholder (replace with your actual handle when ready) -->
+          <a href="https://instagram.com/autoaiuy" target="_blank" rel="noopener noreferrer" class="footer-link">
+            <i data-lucide="instagram" width="20" height="20"></i>
+            <span>@autoaiuy</span>
+          </a>
+        </div>
+
+        <!-- Copyright -->
+        <div class="footer-bottom">
+          <p>© 2026 AutoAIUY - Consultora de Inteligencia Artificial y Automatización</p>
+          <p style="margin-top: 8px; font-size: 0.85rem;">
+            Transformamos empresas con IA estratégica
+          </p>
+        </div>
+      </div>
+    </div>
   </footer>
+
+  <!-- ===================================
+       JAVASCRIPT
+  =================================== -->
+  <script>
+    // Initialize Lucide Icons
+    lucide.createIcons();
+
+    // Initialize AOS (Animate On Scroll)
+    AOS.init({
+      duration: 800,
+      easing: 'ease-out',
+      once: true,
+      offset: 100
+    });
+
+    // Contact Form Handling (Client-side validation only - no backend)
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+
+    contactForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form values
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // Basic validation
+      if (!name || !email || !message) {
+        showMessage('Por favor completá todos los campos requeridos.', 'error');
+        return;
+      }
+
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        showMessage('Por favor ingresá un email válido.', 'error');
+        return;
+      }
+
+      // Success message (since no backend)
+      showMessage('¡Gracias por tu consulta! Te contactaremos pronto a ' + email, 'success');
+      
+      // Reset form
+      contactForm.reset();
+      
+      // Optional: You can add mailto functionality here
+      // window.location.href = `mailto:contacto@autoaiuy.com?subject=Consulta de ${name}&body=${message}`;
+    });
+
+    function showMessage(text, type) {
+      formMessage.textContent = text;
+      formMessage.className = 'form-message ' + type;
+      
+      // Scroll to message
+      formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      
+      // Auto-hide after 8 seconds
+      if (type === 'success') {
+        setTimeout(() => {
+          formMessage.style.display = 'none';
+        }, 8000);
+      }
+    }
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+  </script>
 
 </body>
 </html>
