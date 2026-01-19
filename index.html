@@ -937,10 +937,14 @@
       </p>
 
       <div class="contact-form" data-aos="fade-up" data-aos-delay="100">
-        <!-- Success/Error Messages -->
-        <div id="formMessage" class="form-message"></div>
+        <!-- Netlify Forms maneja todo automáticamente -->
+        <form name="contacto" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+          <!-- Campo oculto anti-spam -->
+          <input type="hidden" name="form-name" value="contacto">
+          <div style="display: none;">
+            <label>Don't fill this out: <input name="bot-field"></label>
+          </div>
 
-        <form id="contactForm">
           <div class="form-group">
             <label for="name">Nombre Completo *</label>
             <input 
@@ -1044,86 +1048,6 @@
       once: true,
       offset: 100
     });
-
-    // Contact Form Handling (Netlify Function)
-    const contactForm = document.getElementById('contactForm');
-    const formMessage = document.getElementById('formMessage');
-    const submitButton = contactForm.querySelector('button[type="submit"]');
-
-    contactForm.addEventListener('submit', async function(e) {
-      e.preventDefault();
-      
-      // Get form values
-      const name = document.getElementById('name').value.trim();
-      const email = document.getElementById('email').value.trim();
-      const message = document.getElementById('message').value.trim();
-
-      // Basic validation
-      if (!name || !email || !message) {
-        showMessage('Por favor completá todos los campos requeridos.', 'error');
-        return;
-      }
-
-      // Email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email)) {
-        showMessage('Por favor ingresá un email válido.', 'error');
-        return;
-      }
-
-      // Deshabilitar botón mientras se envía
-      submitButton.disabled = true;
-      submitButton.textContent = 'Enviando...';
-
-      try {
-        // Enviar a Netlify Function
-        const response = await fetch('/.netlify/functions/contacto', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({
-            name: name,
-            email: email,
-            message: message
-          })
-        });
-
-        const data = await response.json();
-
-        if (response.ok && data.success) {
-          // Éxito
-          showMessage('¡Gracias por tu consulta! Te contactaremos pronto a ' + email, 'success');
-          contactForm.reset();
-        } else {
-          // Error del servidor
-          showMessage(data.error || 'Hubo un error al enviar tu consulta. Por favor intentá de nuevo.', 'error');
-        }
-
-      } catch (error) {
-        console.error('Error al enviar formulario:', error);
-        showMessage('Error de conexión. Por favor verificá tu internet e intentá de nuevo.', 'error');
-      } finally {
-        // Re-habilitar botón
-        submitButton.disabled = false;
-        submitButton.textContent = 'Enviar Consulta';
-      }
-    });
-
-    function showMessage(text, type) {
-      formMessage.textContent = text;
-      formMessage.className = 'form-message ' + type;
-      
-      // Scroll to message
-      formMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-      
-      // Auto-hide after 8 seconds
-      if (type === 'success') {
-        setTimeout(() => {
-          formMessage.style.display = 'none';
-        }, 8000);
-      }
-    }
 
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
