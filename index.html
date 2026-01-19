@@ -937,8 +937,11 @@
       </p>
 
       <div class="contact-form" data-aos="fade-up" data-aos-delay="100">
-        <!-- Netlify Forms maneja todo automáticamente -->
-        <form name="contacto" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <!-- Mensaje de éxito/error -->
+        <div id="formMessage" class="form-message"></div>
+
+        <!-- Netlify Forms con JavaScript -->
+        <form name="contacto" id="contactForm" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
           <!-- Campo oculto anti-spam -->
           <input type="hidden" name="form-name" value="contacto">
           <div style="display: none;">
@@ -1047,6 +1050,58 @@
       easing: 'ease-out',
       once: true,
       offset: 100
+    });
+
+    // Netlify Forms con mensaje de éxito
+    const contactForm = document.getElementById('contactForm');
+    const formMessage = document.getElementById('formMessage');
+    const submitButton = contactForm.querySelector('button[type="submit"]');
+
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      // Deshabilitar botón
+      submitButton.disabled = true;
+      submitButton.textContent = 'Enviando...';
+      
+      // Preparar datos del form
+      const formData = new FormData(contactForm);
+      
+      try {
+        // Enviar a Netlify
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(formData).toString()
+        });
+
+        if (response.ok) {
+          // Éxito - mostrar mensaje
+          formMessage.textContent = '✅ ¡Mensaje enviado! Te contactaremos pronto.';
+          formMessage.className = 'form-message success';
+          
+          // Limpiar form
+          contactForm.reset();
+          
+          // Scroll suave al inicio
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          
+          // Ocultar mensaje después de 8 segundos
+          setTimeout(() => {
+            formMessage.style.display = 'none';
+          }, 8000);
+        } else {
+          throw new Error('Error al enviar');
+        }
+      } catch (error) {
+        // Error - mostrar mensaje
+        formMessage.textContent = '❌ Hubo un error. Por favor intentá de nuevo.';
+        formMessage.className = 'form-message error';
+      } finally {
+        // Re-habilitar botón
+        submitButton.disabled = false;
+        submitButton.textContent = 'Enviar Consulta';
+      }
     });
 
     // Smooth scroll for anchor links
