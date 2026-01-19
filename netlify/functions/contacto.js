@@ -79,9 +79,9 @@ exports.handler = async (event, context) => {
       };
     }
 
-    // 1. Enviar email de notificación a contacto@autoaiuy.com
-    const notificationEmailSent = await sendEmail(RESEND_API_KEY, {
-      from: 'AutoAIUY <hello@autoaiuy.com>', // Usando dominio verificado con DKIM
+    // Enviar email de notificación a contacto@autoaiuy.com
+    const emailSent = await sendEmail(RESEND_API_KEY, {
+      from: 'AutoAIUY <contacto@autoaiuy.com>',
       to: 'contacto@autoaiuy.com',
       replyTo: email, // Para que puedas responder directamente al cliente
       subject: `Nueva consulta de ${name}`,
@@ -128,73 +128,9 @@ exports.handler = async (event, context) => {
       `
     });
 
-    // 2. Enviar email de confirmación automática al usuario
-    const confirmationEmailSent = await sendEmail(RESEND_API_KEY, {
-      from: 'AutoAIUY <hello@autoaiuy.com>', // Usando dominio verificado con DKIM
-      to: email,
-      replyTo: 'contacto@autoaiuy.com', // Respuestas van a tu email
-      subject: '✅ Recibimos tu consulta - AutoAIUY',
-      html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-          <style>
-            body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-            .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-            .header { background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #a855f7 100%); 
-                     color: white; padding: 40px 30px; text-align: center; border-radius: 8px 8px 0 0; }
-            .logo { font-size: 32px; font-weight: bold; margin-bottom: 10px; }
-            .content { background: #f9fafb; padding: 40px 30px; }
-            .message { background: white; padding: 25px; border-radius: 8px; border-left: 4px solid #8b5cf6; 
-                       margin: 20px 0; }
-            .footer { text-align: center; padding: 20px; color: #666; font-size: 14px; }
-            .btn { display: inline-block; background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); 
-                   color: white; padding: 14px 30px; text-decoration: none; border-radius: 8px; 
-                   font-weight: bold; margin: 20px 0; }
-          </style>
-        </head>
-        <body>
-          <div class="container">
-            <div class="header">
-              <div class="logo">🤖 AutoAIUY</div>
-              <h1 style="margin: 0;">¡Gracias por contactarnos!</h1>
-            </div>
-            <div class="content">
-              <p>Hola <strong>${escapeHtml(name)}</strong>,</p>
-              
-              <div class="message">
-                <p><strong>✅ Recibimos tu consulta correctamente</strong></p>
-                <p>Nuestro equipo la está revisando y te vamos a responder a la brevedad a <strong>${escapeHtml(email)}</strong></p>
-              </div>
-              
-              <p>Mientras tanto, recordá que en <strong>AutoAIUY</strong> nos especializamos en:</p>
-              <ul>
-                <li>🤖 Chatbots inteligentes en WhatsApp</li>
-                <li>🧠 Agentes de IA con RAG</li>
-                <li>⚡ Automatización de procesos</li>
-                <li>✨ Consultoría estratégica en IA</li>
-              </ul>
-              
-              <p style="margin-top: 30px;">
-                <a href="https://autoaiuy.com" class="btn">Volver al sitio</a>
-              </p>
-            </div>
-            <div class="footer">
-              <p>Este es un email automático, por favor no respondas a esta dirección.</p>
-              <p>Para consultas, escribinos a <a href="mailto:contacto@autoaiuy.com">contacto@autoaiuy.com</a></p>
-              <p style="margin-top: 20px; color: #999;">
-                © 2026 AutoAIUY - Consultora de Inteligencia Artificial
-              </p>
-            </div>
-          </div>
-        </body>
-        </html>
-      `
-    });
-
-    // Verificar que ambos emails se enviaron
-    if (!notificationEmailSent || !confirmationEmailSent) {
-      throw new Error('Error al enviar uno o ambos emails');
+    // Verificar que el email se envió
+    if (!emailSent) {
+      throw new Error('Error al enviar el email');
     }
 
     // Respuesta exitosa
